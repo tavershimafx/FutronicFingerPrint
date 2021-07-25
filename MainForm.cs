@@ -52,7 +52,7 @@ namespace FutronicFingerPrint
             device.SwitchLedState(true, false);
 
             var fingerprint = device.ReadFingerprint();
-            this.pictureBoxCapture.Image = fingerprint;
+            this.scannerPicture.Image = fingerprint;
         }
 
         private void FingerReleased(object sender, EventArgs e)
@@ -70,7 +70,30 @@ namespace FutronicFingerPrint
             saveFile.InitialDirectory = SpecialDirectories.MyPictures;
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                this.pictureBoxCapture.Image.Save(saveFile.FileName);
+                this.scannerPicture.Image.Save(saveFile.FileName);
+            }
+        }
+
+        private void btnCompare_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new();
+
+            openFile.Title = "Open Fingerprint";
+            openFile.Filter = "*.jpg|*.png";
+            openFile.DefaultExt = "jpg";
+            openFile.AddExtension = true;
+            openFile.InitialDirectory = SpecialDirectories.MyPictures;
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(openFile.FileName))
+                {
+                    this.comparedPicture.Image = Image.FromFile(openFile.FileName);
+                }
             }
         }
     }
