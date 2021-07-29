@@ -1,4 +1,5 @@
 ﻿using Futronic.Scanners.FS26X80;
+using FutronicFingerPrint.Forms;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -22,15 +23,15 @@ namespace FutronicFingerPrint
         public MainForm()
         {
             InitializeComponent();
-            InitializeDevice();
+            //InitializeDevice();
             
-            Task.Run(() =>
-            {
-                device.StartFingerDetection();
-                device.SwitchLedState(false, true);
+            //Task.Run(() =>
+            //{
+            //    device.StartFingerDetection();
+            //    device.SwitchLedState(false, true);
 
-                device.SwitchLedState(false, false);
-            });
+            //    device.SwitchLedState(false, false);
+            //});
         }
 
         private void InitializeDevice()
@@ -52,7 +53,7 @@ namespace FutronicFingerPrint
             device.SwitchLedState(true, false);
 
             var fingerprint = device.ReadFingerprint();
-            this.scannerPicture.Image = fingerprint;
+            //this.scannerPicture.Image = fingerprint;
         }
 
         private void FingerReleased(object sender, EventArgs e)
@@ -70,7 +71,7 @@ namespace FutronicFingerPrint
             saveFile.InitialDirectory = SpecialDirectories.MyPictures;
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                this.scannerPicture.Image.Save(saveFile.FileName);
+                //this.scannerPicture.Image.Save(saveFile.FileName);
             }
         }
 
@@ -92,9 +93,35 @@ namespace FutronicFingerPrint
             {
                 if (File.Exists(openFile.FileName))
                 {
-                    this.comparedPicture.Image = Image.FromFile(openFile.FileName);
+                    //this.comparedPicture.Image = Image.FromFile(openFile.FileName);
                 }
             }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            
+        }
+
+        private void openToolStripBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newToolStripBtn_Click(object sender, EventArgs e)
+        {
+            UserRegistrationForm registrationForm = new();
+            registrationForm.ShowDialog();
+        }
+
+        private void saveToolStripBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printToolStripBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
